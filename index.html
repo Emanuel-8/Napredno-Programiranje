@@ -20,7 +20,7 @@
   }
 
   .slide {
-    width: 960px;
+    width: 1280px;
     background: #161b22;
     border: 1px solid #30363d;
     border-radius: 16px;
@@ -28,7 +28,6 @@
     box-shadow: 0 32px 80px rgba(0,0,0,0.6);
   }
 
-  /* Header */
   .header {
     background: #0d1b2a;
     border-bottom: 1px solid #30363d;
@@ -55,18 +54,15 @@
     letter-spacing: 0.05em; text-transform: uppercase;
   }
 
-  /* Slider section */
   .controls {
-    padding: 24px 36px;
+    padding: 20px 36px;
     border-bottom: 1px solid #30363d;
     display: flex;
     align-items: center;
     gap: 24px;
     background: #0f1319;
   }
-  .ctrl-label {
-    font-size: 13px; color: #8b949e; font-weight: 500; white-space: nowrap;
-  }
+  .ctrl-label { font-size: 13px; color: #8b949e; font-weight: 500; white-space: nowrap; }
   .slider-wrap { flex: 1; display: flex; align-items: center; gap: 16px; }
   input[type=range] {
     -webkit-appearance: none;
@@ -94,53 +90,35 @@
   }
   .magic-const span { color: #3fb950; font-weight: 700; }
 
-  /* Warning for even sizes */
-  .warning {
-    display: none;
-    padding: 10px 36px;
-    background: #2d1f0e;
-    border-bottom: 1px solid #7d4e0a44;
-    font-size: 12px; color: #ffa657;
-  }
-  .warning.show { display: block; }
-
-  /* Main content */
   .content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-height: 380px;
+    grid-template-columns: 1fr 1fr 1fr;
+    min-height: 460px;
   }
 
-  .panel { padding: 28px 32px; }
+  .panel { padding: 24px 26px; overflow: hidden; }
   .panel + .panel { border-left: 1px solid #30363d; }
   .panel-label {
     font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
     text-transform: uppercase; color: #8b949e;
-    margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+    margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
   }
   .panel-label::before {
     content: ''; display: inline-block;
     width: 6px; height: 6px; border-radius: 50%; background: currentColor;
   }
 
-  /* Grid */
   #grid-container {
     display: flex; align-items: center; justify-content: center;
     min-height: 300px;
   }
-  .magic-grid {
-    display: grid;
-    gap: 5px;
-  }
+  .magic-grid { display: grid; gap: 5px; }
   .cell {
     display: flex; align-items: center; justify-content: center;
-    background: #1f2937;
-    border: 1px solid #374151;
-    border-radius: 6px;
+    background: #1f2937; border: 1px solid #374151; border-radius: 6px;
     font-family: 'JetBrains Mono', monospace;
     font-weight: 700; color: #f0f6fc;
-    transition: background 0.3s, transform 0.15s;
-    cursor: default;
+    transition: background 0.3s, transform 0.15s; cursor: default;
   }
   .cell:hover { transform: scale(1.08); z-index: 1; position: relative; }
   .cell.center-cell { background: #1a2f1a; border-color: #3fb950; color: #3fb950; }
@@ -148,27 +126,33 @@
   .cell.diag2 { background: #2a1a2e; border-color: #d2a8ff; color: #d2a8ff; }
   .cell.both  { background: #1f2a1f; border-color: #3fb950; color: #3fb950; }
 
-  /* Output panel */
+  .legend { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; font-size: 11px; color: #8b949e; }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-dot  { width: 10px; height: 10px; border-radius: 3px; border: 1px solid; flex-shrink: 0; }
+
   .output-scroll {
     background: #0d1117; border: 1px solid #30363d; border-radius: 10px;
-    padding: 16px 18px; max-height: 340px; overflow-y: auto;
+    padding: 14px 16px; max-height: 390px; overflow-y: auto;
     font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.8;
   }
-  .out-row { display: flex; gap: 12px; }
-  .out-key   { color: #8b949e; min-width: 80px; }
-  .out-val   { color: #3fb950; font-weight: 700; }
-  .out-sep   { color: #30363d; margin: 6px 0; }
-  .out-grid-line { color: #79c0ff; letter-spacing: 0.15em; font-size: 13px; }
+  .out-row { display: flex; gap: 8px; }
+  .out-key { color: #8b949e; min-width: 70px; }
+  .out-val { color: #3fb950; font-weight: 700; }
+  .out-grid-line { color: #79c0ff; letter-spacing: 0.1em; font-size: 12px; }
 
-  /* Legend */
-  .legend {
-    display: flex; gap: 16px; flex-wrap: wrap;
-    margin-top: 16px; font-size: 11px; color: #8b949e;
+  .code-scroll {
+    background: #0d1117; border: 1px solid #30363d; border-radius: 10px;
+    padding: 14px 16px; max-height: 400px; overflow-y: auto; overflow-x: auto;
   }
-  .legend-item { display: flex; align-items: center; gap: 6px; }
-  .legend-dot  { width: 10px; height: 10px; border-radius: 3px; border: 1px solid; }
+  pre { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; line-height: 1.75; white-space: pre; }
+  .kw { color: #ff7b72; }
+  .ty { color: #ffa657; }
+  .fn { color: #d2a8ff; }
+  .st { color: #a5d6ff; }
+  .cm { color: #8b949e; font-style: italic; }
+  .nm { color: #79c0ff; }
+  .hl { color: #3fb950; font-weight: 700; }
 
-  /* Footer */
   .footer {
     border-top: 1px solid #30363d;
     padding: 14px 36px;
@@ -184,7 +168,6 @@
 <body>
 <div class="slide">
 
-  <!-- Header -->
   <div class="header">
     <div class="dots">
       <div class="dot red"></div>
@@ -198,7 +181,6 @@
     <div class="badge">C++17</div>
   </div>
 
-  <!-- Controls -->
   <div class="controls">
     <div class="ctrl-label">Matrix Size</div>
     <div class="slider-wrap">
@@ -208,41 +190,35 @@
     <div class="magic-const">Magic sum = <span id="magic-sum">15</span></div>
   </div>
 
-  <div class="warning" id="warning">
-    ⚠ Even-order magic squares require a different algorithm. Showing odd sizes only (3, 5, 7, 9, 11).
-  </div>
-
-  <!-- Main -->
   <div class="content">
 
-    <!-- Left: Grid -->
+    <!-- Col 1: Visual Grid -->
     <div class="panel">
       <div class="panel-label">Visual Grid</div>
       <div id="grid-container">
         <div class="magic-grid" id="magic-grid"></div>
       </div>
       <div class="legend">
-        <div class="legend-item">
-          <div class="legend-dot" style="background:#1a2f1a;border-color:#3fb950"></div> Center
-        </div>
-        <div class="legend-item">
-          <div class="legend-dot" style="background:#1a1f2e;border-color:#58a6ff"></div> Main diagonal
-        </div>
-        <div class="legend-item">
-          <div class="legend-dot" style="background:#2a1a2e;border-color:#d2a8ff"></div> Anti-diagonal
-        </div>
+        <div class="legend-item"><div class="legend-dot" style="background:#1a2f1a;border-color:#3fb950"></div>Center</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#1a1f2e;border-color:#58a6ff"></div>Main diag</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#2a1a2e;border-color:#d2a8ff"></div>Anti-diag</div>
       </div>
     </div>
 
-    <!-- Right: Output -->
+    <!-- Col 2: Program Output -->
     <div class="panel">
       <div class="panel-label">Program Output</div>
       <div class="output-scroll" id="output-box"></div>
     </div>
 
+    <!-- Col 3: C++ Code -->
+    <div class="panel">
+      <div class="panel-label">C++ Source Code</div>
+      <div class="code-scroll"><pre id="cpp-code"></pre></div>
+    </div>
+
   </div>
 
-  <!-- Footer -->
   <div class="footer">
     <div class="footer-note">Integers <strong>1 – n²</strong> used exactly once</div>
     <div class="formula">Magic constant = <span>n(n²+1) / 2</span></div>
@@ -264,73 +240,115 @@
     return sq;
   }
 
+  function esc(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function buildCppCode(n, sq) {
+    const pad = n > 9 ? 3 : 2;
+    let initRows = '';
+    for (let i = 0; i < n; i++) {
+      const vals = sq[i].map(v => String(v).padStart(pad)).join(', ');
+      initRows += `        {${vals}}${i < n - 1 ? ',' : ''}\n`;
+    }
+    return `<span class="kw">#include</span> <span class="st">&lt;iostream&gt;</span>
+<span class="kw">using namespace</span> <span class="ty">std</span>;
+
+<span class="ty">int</span> <span class="fn">main</span>() {
+    <span class="cm">// ${n}x${n} magic square — Siamese method</span>
+    <span class="kw">const</span> <span class="ty">int</span> N = <span class="hl">${n}</span>;
+    <span class="ty">int</span> magic[N][N] = {
+${initRows}    };
+
+    <span class="cm">// Print the grid</span>
+    cout &lt;&lt; <span class="st">"Magic Square ("</span> &lt;&lt; N
+         &lt;&lt; <span class="st">"x"</span> &lt;&lt; N &lt;&lt; <span class="st">"):\\n"</span>;
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="nm">0</span>; i &lt; N; i++) {
+        <span class="kw">for</span> (<span class="ty">int</span> j = <span class="nm">0</span>; j &lt; N; j++)
+            cout &lt;&lt; magic[i][j] &lt;&lt; <span class="st">" "</span>;
+        cout &lt;&lt; <span class="st">"\\n"</span>;
+    }
+
+    <span class="cm">// Verify rows, columns & diagonals</span>
+    cout &lt;&lt; <span class="st">"\\nVerification:\\n"</span>;
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="nm">0</span>; i &lt; N; i++) {
+        <span class="ty">int</span> row = <span class="nm">0</span>, col = <span class="nm">0</span>;
+        <span class="kw">for</span> (<span class="ty">int</span> j = <span class="nm">0</span>; j &lt; N; j++) {
+            row += magic[i][j];
+            col += magic[j][i];
+        }
+        cout &lt;&lt; <span class="st">"Row "</span> &lt;&lt; i+<span class="nm">1</span>
+             &lt;&lt; <span class="st">": "</span> &lt;&lt; row
+             &lt;&lt; <span class="st">" | Col "</span> &lt;&lt; i+<span class="nm">1</span>
+             &lt;&lt; <span class="st">": "</span> &lt;&lt; col &lt;&lt; <span class="st">"\\n"</span>;
+    }
+    <span class="ty">int</span> d1 = <span class="nm">0</span>, d2 = <span class="nm">0</span>;
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="nm">0</span>; i &lt; N; i++) {
+        d1 += magic[i][i];
+        d2 += magic[i][N-<span class="nm">1</span>-i];
+    }
+    cout &lt;&lt; <span class="st">"Diag1: "</span> &lt;&lt; d1
+         &lt;&lt; <span class="st">" | Diag2: "</span> &lt;&lt; d2
+         &lt;&lt; <span class="st">"\\n"</span>;
+
+    <span class="kw">return</span> <span class="nm">0</span>;
+}`;
+  }
+
   function render(n) {
     const sq = generateMagicSquare(n);
     const magicSum = n * (n * n + 1) / 2;
     const mid = Math.floor(n / 2);
 
-    // Update labels
     document.getElementById('size-label').textContent = n;
     document.getElementById('size-label2').textContent = n;
     document.getElementById('magic-sum').textContent = magicSum;
 
-    // Compute cell size
-    const maxGridPx = 300;
-    const cellSize = Math.max(28, Math.min(64, Math.floor((maxGridPx - (n-1)*5) / n)));
-    const fontSize = Math.max(10, Math.min(22, Math.floor(cellSize * 0.42)));
-
-    // Build grid
+    // Grid
+    const maxPx = 280;
+    const cellSize = Math.max(26, Math.min(60, Math.floor((maxPx - (n-1)*5) / n)));
+    const fontSize = Math.max(9, Math.min(20, Math.floor(cellSize * 0.42)));
     const grid = document.getElementById('magic-grid');
     grid.style.gridTemplateColumns = `repeat(${n}, ${cellSize}px)`;
     grid.innerHTML = '';
-
     for (let i = 0; i < n; i++) {
       for (let j = 0; j < n; j++) {
         const div = document.createElement('div');
         div.className = 'cell';
-        div.style.width  = cellSize + 'px';
-        div.style.height = cellSize + 'px';
-        div.style.fontSize = fontSize + 'px';
+        div.style.cssText = `width:${cellSize}px;height:${cellSize}px;font-size:${fontSize}px`;
         div.textContent = sq[i][j];
-
-        const onD1 = i === j;
-        const onD2 = i + j === n - 1;
-        const isCenter = i === mid && j === mid;
-
-        if (isCenter)       div.classList.add('center-cell');
+        const onD1 = i === j, onD2 = i + j === n - 1, isC = i === mid && j === mid;
+        if (isC) div.classList.add('center-cell');
         else if (onD1 && onD2) div.classList.add('both');
-        else if (onD1)      div.classList.add('diag1');
-        else if (onD2)      div.classList.add('diag2');
-
+        else if (onD1) div.classList.add('diag1');
+        else if (onD2) div.classList.add('diag2');
         grid.appendChild(div);
       }
     }
 
-    // Build output
+    // Output
     const out = document.getElementById('output-box');
-    let html = '';
-    html += `<div style="color:#58a6ff;font-weight:600;margin-bottom:4px">Magic Square (${n}x${n}):</div>`;
-    html += `<div style="color:#30363d;margin-bottom:6px">${'-'.repeat(n * 3)}</div>`;
+    let html = `<div style="color:#58a6ff;font-weight:600;margin-bottom:4px">Magic Square (${n}x${n}):</div>`;
+    html += `<div style="color:#30363d;margin-bottom:6px">${'-'.repeat(Math.min(n*3,40))}</div>`;
     for (let i = 0; i < n; i++) {
       html += `<div class="out-grid-line">${sq[i].map(v => String(v).padStart(n > 9 ? 3 : 2)).join(' ')}</div>`;
     }
-    html += `<div style="height:10px"></div>`;
-    html += `<div style="color:#8b949e;margin-bottom:4px">Verification (all = ${magicSum}):</div>`;
+    html += `<div style="height:8px"></div><div style="color:#8b949e;margin-bottom:4px">Verification (all = ${magicSum}):</div>`;
     for (let i = 0; i < n; i++) {
       let row = 0, col = 0;
       for (let j = 0; j < n; j++) { row += sq[i][j]; col += sq[j][i]; }
-      html += `<div class="out-row"><span class="out-key">Row ${i+1}:</span><span class="out-val">${row}</span><span class="out-key" style="margin-left:12px">Col ${i+1}:</span><span class="out-val">${col}</span></div>`;
+      html += `<div class="out-row"><span class="out-key">Row ${i+1}:</span><span class="out-val">${row}</span><span class="out-key" style="margin-left:8px">Col ${i+1}:</span><span class="out-val">${col}</span></div>`;
     }
     let d1 = 0, d2 = 0;
     for (let i = 0; i < n; i++) { d1 += sq[i][i]; d2 += sq[i][n-1-i]; }
-    html += `<div style="height:6px"></div>`;
-    html += `<div class="out-row"><span class="out-key">Diag 1:</span><span class="out-val">${d1}</span><span class="out-key" style="margin-left:12px">Diag 2:</span><span class="out-val">${d2}</span></div>`;
-
+    html += `<div style="height:6px"></div><div class="out-row"><span class="out-key">Diag 1:</span><span class="out-val">${d1}</span><span class="out-key" style="margin-left:8px">Diag 2:</span><span class="out-val">${d2}</span></div>`;
     out.innerHTML = html;
+
+    // C++ code
+    document.getElementById('cpp-code').innerHTML = buildCppCode(n, sq);
   }
 
-  const slider = document.getElementById('size-slider');
-  slider.addEventListener('input', () => render(parseInt(slider.value)));
+  document.getElementById('size-slider').addEventListener('input', e => render(parseInt(e.target.value)));
   render(3);
 </script>
 </body>
