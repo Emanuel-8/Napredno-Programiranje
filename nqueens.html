@@ -14,10 +14,32 @@
     font-family: 'Outfit', sans-serif;
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 40px 20px;
+    gap: 0;
   }
+
+  .nav {
+    width: 1280px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .nav-btn {
+    display: flex; align-items: center; gap: 8px;
+    background: #161b22; border: 1px solid #30363d;
+    color: #8b949e; font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
+    padding: 8px 16px; border-radius: 8px;
+    cursor: pointer; text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .nav-btn:hover  { border-color: #58a6ff; color: #58a6ff; background: #58a6ff11; }
+  .nav-btn.active { border-color: #58a6ff; color: #58a6ff; background: #58a6ff18; }
+  .nav-sep { color: #30363d; font-size: 18px; user-select: none; }
 
   .slide {
     width: 1280px;
@@ -29,12 +51,8 @@
   }
 
   .header {
-    background: #0d1b2a;
-    border-bottom: 1px solid #30363d;
-    padding: 24px 36px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
+    background: #0d1b2a; border-bottom: 1px solid #30363d;
+    padding: 24px 36px; display: flex; align-items: center; gap: 16px;
   }
   .dots { display: flex; gap: 7px; }
   .dot { width: 12px; height: 12px; border-radius: 50%; }
@@ -45,57 +63,47 @@
   .header-sub   { font-size: 12px; color: #8b949e; font-weight: 300; margin-top: 2px; }
   .badge {
     margin-left: auto;
-    background: #58a6ff22;
-    border: 1px solid #58a6ff44;
-    color: #58a6ff;
-    font-family: 'JetBrains Mono', monospace;
+    background: #58a6ff22; border: 1px solid #58a6ff44;
+    color: #58a6ff; font-family: 'JetBrains Mono', monospace;
     font-size: 11px; font-weight: 600;
     padding: 4px 10px; border-radius: 6px;
     letter-spacing: 0.05em; text-transform: uppercase;
   }
 
   .controls {
-    padding: 20px 36px;
-    border-bottom: 1px solid #30363d;
-    display: flex;
-    align-items: center;
-    gap: 24px;
+    padding: 20px 36px; border-bottom: 1px solid #30363d;
+    display: flex; align-items: center; gap: 24px;
     background: #0f1319;
   }
   .ctrl-label { font-size: 13px; color: #8b949e; font-weight: 500; white-space: nowrap; }
   .slider-wrap { flex: 1; display: flex; align-items: center; gap: 16px; }
   input[type=range] {
-    -webkit-appearance: none;
-    flex: 1; height: 6px;
+    -webkit-appearance: none; flex: 1; height: 6px;
     background: #30363d; border-radius: 3px; outline: none; cursor: pointer;
   }
   input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 20px; height: 20px; border-radius: 50%;
+    -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%;
     background: #58a6ff; cursor: pointer;
-    box-shadow: 0 0 0 3px #58a6ff33;
-    transition: box-shadow 0.2s;
+    box-shadow: 0 0 0 3px #58a6ff33; transition: box-shadow 0.2s;
   }
   input[type=range]::-webkit-slider-thumb:hover { box-shadow: 0 0 0 6px #58a6ff33; }
   .size-display {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 18px; font-weight: 700;
-    color: #58a6ff; min-width: 52px; text-align: center;
+    font-size: 18px; font-weight: 700; color: #58a6ff;
+    min-width: 52px; text-align: center;
   }
-  .queens-badge {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px; color: #8b949e;
+  .subcase-badge {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8b949e;
     background: #0d1117; border: 1px solid #30363d;
     padding: 6px 14px; border-radius: 8px; white-space: nowrap;
   }
-  .queens-badge span { color: #ffa657; font-weight: 700; }
+  .subcase-badge span { font-weight: 700; }
+  .sc-a { color: #58a6ff; }
+  .sc-b { color: #ffa657; }
+  .sc-c { color: #d2a8ff; }
+  .sc-x { color: #ff7b72; }
 
-  .content {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    min-height: 460px;
-  }
-
+  .content { display: grid; grid-template-columns: 1fr 1fr 1fr; min-height: 460px; }
   .panel { padding: 24px 26px; overflow: hidden; }
   .panel + .panel { border-left: 1px solid #30363d; }
   .panel-label {
@@ -108,41 +116,20 @@
     width: 6px; height: 6px; border-radius: 50%; background: currentColor;
   }
 
-  /* Chess board */
-  #grid-container {
-    display: flex; align-items: center; justify-content: center;
-    min-height: 300px;
-  }
+  #grid-container { display: flex; align-items: center; justify-content: center; min-height: 300px; }
   .chess-grid { display: grid; border: 2px solid #30363d; border-radius: 6px; overflow: hidden; }
-  .cell {
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.25s;
-    cursor: default; position: relative;
-  }
-  .cell.light { background: #1f2937; }
-  .cell.dark  { background: #161b22; }
+  .cell { display: flex; align-items: center; justify-content: center; transition: background 0.2s; cursor: default; }
+  .cell.light       { background: #1f2937; }
+  .cell.dark        { background: #161b22; }
   .cell.queen-light { background: #1c3a1c; }
   .cell.queen-dark  { background: #162b16; }
-  .cell.attacked-light { background: #2a1a1a; }
-  .cell.attacked-dark  { background: #1f1010; }
-  .queen-icon {
-    font-size: inherit;
-    line-height: 1;
-    filter: drop-shadow(0 0 6px #3fb95088);
-    user-select: none;
-  }
-  .queen-num {
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 700;
-    color: #3fb950;
-    line-height: 1;
-  }
+  .cell.att-light   { background: #2a1a1a; }
+  .cell.att-dark    { background: #1f1010; }
 
   .legend { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; font-size: 11px; color: #8b949e; }
   .legend-item { display: flex; align-items: center; gap: 6px; }
-  .legend-dot  { width: 10px; height: 10px; border-radius: 3px; border: 1px solid; flex-shrink: 0; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 3px; border: 1px solid; flex-shrink: 0; }
 
-  /* Output panel */
   .output-scroll {
     background: #0d1117; border: 1px solid #30363d; border-radius: 10px;
     padding: 14px 16px; max-height: 390px; overflow-y: auto;
@@ -151,9 +138,8 @@
   .out-row { display: flex; gap: 8px; }
   .out-key { color: #8b949e; min-width: 70px; }
   .out-val { color: #3fb950; font-weight: 700; }
-  .out-grid-line { color: #79c0ff; letter-spacing: 0.18em; font-size: 13px; }
+  .out-grid-line { color: #79c0ff; letter-spacing: 0.12em; font-size: 12px; }
 
-  /* Code panel */
   .code-scroll {
     background: #0d1117; border: 1px solid #30363d; border-radius: 10px;
     padding: 14px 16px; max-height: 400px; overflow-y: auto; overflow-x: auto;
@@ -168,8 +154,7 @@
   .hl { color: #3fb950; font-weight: 700; }
 
   .footer {
-    border-top: 1px solid #30363d;
-    padding: 14px 36px;
+    border-top: 1px solid #30363d; padding: 14px 36px;
     display: flex; align-items: center; justify-content: space-between;
     background: #0d1117;
   }
@@ -180,6 +165,13 @@
 </style>
 </head>
 <body>
+
+<nav class="nav">
+  <a class="nav-btn" href="index.html">← Magic Square</a>
+  <span class="nav-sep">/</span>
+  <a class="nav-btn active" href="nqueens.html">N-Queens</a>
+</nav>
+
 <div class="slide">
 
   <div class="header">
@@ -190,7 +182,7 @@
     </div>
     <div style="margin-left:12px">
       <div class="header-title">N-Queens — C++ Solution</div>
-      <div class="header-sub">Construction method · no backtracking · O(n) placement</div>
+      <div class="header-sub">Construction method · 3 subcases · no backtracking · O(n)</div>
     </div>
     <div class="badge">C++17</div>
   </div>
@@ -198,20 +190,17 @@
   <div class="controls">
     <div class="ctrl-label">Board Size</div>
     <div class="slider-wrap">
-      <input type="range" id="size-slider" min="4" max="14" step="1" value="8">
-      <div class="size-display"><span id="size-label">8</span>×<span id="size-label2">8</span></div>
+      <input type="range" id="size-slider" min="1" max="20" step="1" value="8">
+      <div class="size-display"><span id="size-label">8</span>x<span id="size-label2">8</span></div>
     </div>
-    <div class="queens-badge">Queens placed = <span id="queens-count">8</span></div>
+    <div class="subcase-badge">Subcase: <span id="subcase-label">—</span></div>
   </div>
 
   <div class="content">
 
-    <!-- Col 1: Visual Board -->
     <div class="panel">
       <div class="panel-label">Visual Board</div>
-      <div id="grid-container">
-        <div class="chess-grid" id="chess-grid"></div>
-      </div>
+      <div id="grid-container"><div class="chess-grid" id="chess-grid"></div></div>
       <div class="legend">
         <div class="legend-item"><div class="legend-dot" style="background:#1c3a1c;border-color:#3fb950"></div>Queen</div>
         <div class="legend-item"><div class="legend-dot" style="background:#2a1a1a;border-color:#ff7b72"></div>Attacked</div>
@@ -219,13 +208,11 @@
       </div>
     </div>
 
-    <!-- Col 2: Program Output -->
     <div class="panel">
       <div class="panel-label">Program Output</div>
       <div class="output-scroll" id="output-box"></div>
     </div>
 
-    <!-- Col 3: C++ Code -->
     <div class="panel">
       <div class="panel-label">C++ Source Code</div>
       <div class="code-scroll"><pre id="cpp-code"></pre></div>
@@ -235,247 +222,226 @@
 
   <div class="footer">
     <div class="footer-note">Exactly <strong>1 queen</strong> per row, column, and diagonal</div>
-    <div class="formula">Construction: <span>even/odd n · remainder cases</span></div>
+    <div class="formula">Source: <span>Competitive Programming 4 · §9.30</span></div>
   </div>
 
 </div>
 
 <script>
-  /**
-   * Construction-based N-Queens solution (no backtracking).
-   * Returns an array `queens` where queens[i] = column (0-indexed) of queen in row i.
+  /*
+   * N-Queens — Explicit Construction (CP4, §9.30)
+   * 3 subcases based on n % 6. No backtracking, O(n).
    *
-   * Algorithm (Explicit Construction):
-   *   Based on the classical construction published by various authors.
-   *   Works for all n >= 1 (no solution for n=2,3).
+   * Subcase A  n%6 != 2 and n%6 != 3:
+   *   [2,4,6,...] then [1,3,5,...]
    *
-   *   Case 1: n % 6 != 2 and n % 6 != 3
-   *     Place queens at: 2,4,6,...,n (evens), then 1,3,5,...,n-1 (odds)
-   *     (1-indexed columns)
+   * Subcase B  n%6 == 2:
+   *   evens: [2,4,6,...,n]
+   *   odds:  [3,1,7,9,...,n or n-1, 5]
    *
-   *   Case 2: n % 6 == 2
-   *     Evens: 2,4,6,...,n  →  move 2 to end, put 1 after n
-   *     Odds:  3,1,7,9,...,n-1,5
-   *
-   *   Case 3: n % 6 == 3
-   *     Evens: 4,6,8,...,n,2
-   *     Odds:  5,7,9,...,n-2,1,3  (adjust as needed)
-   *
-   * We use the well-known explicit permutation construction.
+   * Subcase C  n%6 == 3:
+   *   evens: [4,6,8,...,n or n-1, 2]
+   *   odds:  [5,7,9,...,n or n-1, 1, 3]
    */
   function solveNQueens(n) {
-    // Returns 1-indexed column positions, one per row
     if (n === 1) return [1];
-    if (n <= 3) return null; // no solution
+    if (n <= 3)  return null;
 
-    const result = [];
     const r = n % 6;
+    const result = [];
 
-    // Build even positions list (1-indexed)
-    const evens = [];
-    for (let i = 2; i <= n; i += 2) evens.push(i);
+    if (r !== 2 && r !== 3) {
+      // Subcase A
+      for (let i = 2; i <= n; i += 2) result.push(i);
+      for (let i = 1; i <= n; i += 2) result.push(i);
 
-    // Build odd positions list (1-indexed)
-    const odds = [];
-    for (let i = 1; i <= n; i += 2) odds.push(i);
+    } else if (r === 2) {
+      // Subcase B
+      for (let i = 2; i <= n; i += 2) result.push(i);
+      result.push(3);
+      result.push(1);
+      for (let i = 7; i <= n; i += 2) result.push(i);
+      result.push(5);
 
-    if (r === 2) {
-      // Rotate evens: remove 2 from front, push to back; insert 1 after n
-      // Permute evens: 2,4,...,n  → 4,6,...,n,2
-      // Permute odds:  1,3,...    → 3,1,7,9,...,n-1,5
-      const e2 = evens.slice(1); e2.push(evens[0]); // rotate left
-      // odds special: 3,1,7,9,...,n-1,5
-      const o2 = [];
-      o2.push(3); o2.push(1);
-      for (let i = 3; i < odds.length; i++) {
-        if (odds[i] !== 5) o2.push(odds[i]);
-      }
-      o2.push(5);
-      result.push(...e2, ...o2);
-    } else if (r === 3) {
-      // evens: 4,6,...,n,2
-      const e3 = evens.slice(1); e3.push(evens[0]); // same rotate
-      // odds:  5,7,9,...,n-2,1,3
-      const o3 = [];
-      for (let i = 2; i < odds.length; i++) o3.push(odds[i]);
-      o3.push(1); o3.push(3);
-      result.push(...e3, ...o3);
     } else {
-      // Default: evens then odds
-      result.push(...evens, ...odds);
+      // Subcase C
+      for (let i = 4; i <= n; i += 2) result.push(i);
+      result.push(2);
+      for (let i = 5; i <= n; i += 2) result.push(i);
+      result.push(1);
+      result.push(3);
     }
 
-    // result now has n values (1-indexed columns), one per row
     return result.slice(0, n);
   }
 
-  function isAttacked(queens, n) {
-    // Returns a 2D boolean array: true = attacked by at least one queen
+  function getSubcase(n) {
+    if (n === 1)           return { label: 'Trivial (n=1)', cls: 'sc-a' };
+    if (n <= 3)            return { label: 'No solution',   cls: 'sc-x' };
+    const r = n % 6;
+    if (r !== 2 && r !== 3) return { label: `A  (n%6=${r})`, cls: 'sc-a' };
+    if (r === 2)             return { label: `B  (n%6=2)`,   cls: 'sc-b' };
+                             return { label: `C  (n%6=3)`,   cls: 'sc-c' };
+  }
+
+  function buildAttacked(queens, n) {
     const att = Array.from({length: n}, () => Array(n).fill(false));
     queens.forEach((col, row) => {
-      const c = col - 1; // 0-indexed
-      for (let j = 0; j < n; j++) {
-        if (j !== c) att[row][j] = true; // same row
-      }
+      const c = col - 1;
+      for (let j = 0; j < n; j++) if (j !== c) att[row][j] = true;
       for (let i = 0; i < n; i++) {
-        if (i !== row) att[i][c] = true; // same col
-        // diagonals
-        const dc = c + (i - row);
-        if (dc >= 0 && dc < n && i !== row) att[i][dc] = true;
-        const dc2 = c - (i - row);
-        if (dc2 >= 0 && dc2 < n && i !== row) att[i][dc2] = true;
+        if (i !== row) att[i][c] = true;
+        const d1 = c + (i - row); if (d1 >= 0 && d1 < n && i !== row) att[i][d1] = true;
+        const d2 = c - (i - row); if (d2 >= 0 && d2 < n && i !== row) att[i][d2] = true;
       }
     });
     return att;
   }
 
+  function checkValid(queens, n) {
+    for (let i = 0; i < n; i++)
+      for (let j = i + 1; j < n; j++) {
+        if (queens[i] === queens[j]) return false;
+        if (Math.abs(queens[i] - queens[j]) === Math.abs(i - j)) return false;
+      }
+    return true;
+  }
+
   function buildCppCode(n, queens) {
-    const arr = queens.join(', ');
+    if (!queens) {
+      return `<span class="kw">#include</span> <span class="st">&lt;iostream&gt;</span>
+<span class="kw">using namespace</span> <span class="ty">std</span>;
+<span class="ty">int</span> <span class="fn">main</span>() {
+    <span class="cm">// N=${n}: no solution exists</span>
+    cout &lt;&lt; <span class="st">"No solution for N=${n}\\n"</span>;
+    <span class="kw">return</span> <span class="nm">0</span>;
+}`;
+    }
+
+    const r = n % 6;
+    const sc = r !== 2 && r !== 3 ? 'A' : r === 2 ? 'B' : 'C';
+
     return `<span class="kw">#include</span> <span class="st">&lt;iostream&gt;</span>
 <span class="kw">#include</span> <span class="st">&lt;vector&gt;</span>
 <span class="kw">using namespace</span> <span class="ty">std</span>;
 
-<span class="cm">// Construction-based N-Queens (no backtracking)</span>
-<span class="cm">// queens[i] = column of queen in row i (1-indexed)</span>
+<span class="cm">// N-Queens construction — O(n), no backtracking</span>
+<span class="cm">// CP4 §9.30 — Subcase ${sc} (n%6=${r})</span>
 <span class="ty">vector</span>&lt;<span class="ty">int</span>&gt; <span class="fn">solveNQueens</span>(<span class="ty">int</span> n) {
-    <span class="ty">vector</span>&lt;<span class="ty">int</span>&gt; evens, odds;
-    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="nm">2</span>; i &lt;= n; i += <span class="nm">2</span>) evens.push_back(i);
-    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="nm">1</span>; i &lt;= n; i += <span class="nm">2</span>) odds.push_back(i);
+    <span class="kw">if</span> (n == <span class="nm">1</span>) <span class="kw">return</span> {<span class="nm">1</span>};
+    <span class="kw">if</span> (n &lt;= <span class="nm">3</span>)  <span class="kw">return</span> {};
 
+    <span class="ty">vector</span>&lt;<span class="ty">int</span>&gt; res;
     <span class="ty">int</span> r = n % <span class="nm">6</span>;
-    <span class="kw">if</span> (r == <span class="nm">2</span>) {
-        <span class="cm">// rotate evens, special odds order</span>
-        <span class="ty">int</span> tmp = evens.front();
-        evens.erase(evens.begin());
-        evens.push_back(tmp);
-        odds = {<span class="nm">3</span>, <span class="nm">1</span>};
-        <span class="kw">for</span> (<span class="ty">int</span> x : <span class="ty">vector</span>&lt;<span class="ty">int</span>&gt;{}) ; <span class="cm">// rebuild</span>
-        <span class="ty">vector</span>&lt;<span class="ty">int</span>&gt; o2 = {<span class="nm">3</span>, <span class="nm">1</span>};
-        <span class="kw">for</span> (<span class="ty">int</span> v = <span class="nm">7</span>; v &lt;= n; v += <span class="nm">2</span>)
-            <span class="kw">if</span> (v != <span class="nm">5</span>) o2.push_back(v);
-        o2.push_back(<span class="nm">5</span>);
-        odds = o2;
-    } <span class="kw">else if</span> (r == <span class="nm">3</span>) {
-        <span class="ty">int</span> tmp = evens.front();
-        evens.erase(evens.begin());
-        evens.push_back(tmp);
-        <span class="ty">vector</span>&lt;<span class="ty">int</span>&gt; o3;
-        <span class="kw">for</span> (<span class="ty">int</span> v = <span class="nm">5</span>; v &lt;= n; v += <span class="nm">2</span>) o3.push_back(v);
-        o3.push_back(<span class="nm">1</span>); o3.push_back(<span class="nm">3</span>);
-        odds = o3;
-    }
 
-    <span class="ty">vector</span>&lt;<span class="ty">int</span>&gt; result;
-    <span class="kw">for</span> (<span class="ty">int</span> v : evens) result.push_back(v);
-    <span class="kw">for</span> (<span class="ty">int</span> v : odds)  result.push_back(v);
-    result.resize(n);
-    <span class="kw">return</span> result;
+    <span class="kw">if</span> (r != <span class="nm">2</span> &amp;&amp; r != <span class="nm">3</span>) {
+        <span class="cm">// Subcase A: evens, then odds</span>
+        <span class="kw">for</span> (<span class="ty">int</span> i=<span class="nm">2</span>; i&lt;=n; i+=<span class="nm">2</span>) res.push_back(i);
+        <span class="kw">for</span> (<span class="ty">int</span> i=<span class="nm">1</span>; i&lt;=n; i+=<span class="nm">2</span>) res.push_back(i);
+    } <span class="kw">else if</span> (r == <span class="nm">2</span>) {
+        <span class="cm">// Subcase B: evens, then 3,1,7,9,...,5</span>
+        <span class="kw">for</span> (<span class="ty">int</span> i=<span class="nm">2</span>; i&lt;=n; i+=<span class="nm">2</span>) res.push_back(i);
+        res.push_back(<span class="nm">3</span>); res.push_back(<span class="nm">1</span>);
+        <span class="kw">for</span> (<span class="ty">int</span> i=<span class="nm">7</span>; i&lt;=n; i+=<span class="nm">2</span>) res.push_back(i);
+        res.push_back(<span class="nm">5</span>);
+    } <span class="kw">else</span> {
+        <span class="cm">// Subcase C: 4,6,...,2 then 5,7,...,1,3</span>
+        <span class="kw">for</span> (<span class="ty">int</span> i=<span class="nm">4</span>; i&lt;=n; i+=<span class="nm">2</span>) res.push_back(i);
+        res.push_back(<span class="nm">2</span>);
+        <span class="kw">for</span> (<span class="ty">int</span> i=<span class="nm">5</span>; i&lt;=n; i+=<span class="nm">2</span>) res.push_back(i);
+        res.push_back(<span class="nm">1</span>); res.push_back(<span class="nm">3</span>);
+    }
+    res.resize(n);
+    <span class="kw">return</span> res;
 }
 
 <span class="ty">int</span> <span class="fn">main</span>() {
     <span class="kw">const</span> <span class="ty">int</span> N = <span class="hl">${n}</span>;
     <span class="ty">auto</span> q = <span class="fn">solveNQueens</span>(N);
-    <span class="cm">// Precomputed: {${arr}}</span>
 
-    cout &lt;&lt; <span class="st">"N-Queens solution (N="</span>
-         &lt;&lt; N &lt;&lt; <span class="st">"):\\n"</span>;
-    <span class="kw">for</span> (<span class="ty">int</span> row = <span class="nm">0</span>; row &lt; N; row++) {
-        <span class="kw">for</span> (<span class="ty">int</span> col = <span class="nm">1</span>; col &lt;= N; col++)
-            cout &lt;&lt; (q[row]==col ? <span class="st">"Q"</span> : <span class="st">"."</span>)
-                 &lt;&lt; <span class="st">" "</span>;
+    cout &lt;&lt; <span class="st">"N-Queens (N="</span> &lt;&lt; N &lt;&lt; <span class="st">"):\\n"</span>;
+    <span class="kw">for</span> (<span class="ty">int</span> row=<span class="nm">0</span>; row&lt;N; row++) {
+        <span class="kw">for</span> (<span class="ty">int</span> col=<span class="nm">1</span>; col&lt;=N; col++)
+            cout &lt;&lt; (q[row]==col?<span class="st">"Q"</span>:<span class="st">"."</span>) &lt;&lt; <span class="st">" "</span>;
         cout &lt;&lt; <span class="st">"\\n"</span>;
     }
-
     <span class="cm">// Verify</span>
-    <span class="ty">bool</span> ok = <span class="kw">true</span>;
-    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="nm">0</span>; i &lt; N && ok; i++)
-      <span class="kw">for</span> (<span class="ty">int</span> j = i+<span class="nm">1</span>; j &lt; N && ok; j++) {
-        <span class="kw">if</span> (q[i]==q[j]) ok=<span class="kw">false</span>;
-        <span class="kw">if</span> (abs(q[i]-q[j])==abs(i-j)) ok=<span class="kw">false</span>;
+    <span class="ty">bool</span> ok=<span class="kw">true</span>;
+    <span class="kw">for</span>(<span class="ty">int</span> i=<span class="nm">0</span>;i&lt;N&amp;&amp;ok;i++)
+      <span class="kw">for</span>(<span class="ty">int</span> j=i+<span class="nm">1</span>;j&lt;N&amp;&amp;ok;j++){
+        <span class="kw">if</span>(q[i]==q[j]) ok=<span class="kw">false</span>;
+        <span class="kw">if</span>(abs(q[i]-q[j])==abs(i-j)) ok=<span class="kw">false</span>;
       }
-    cout &lt;&lt; <span class="st">"\\nValid: "</span>
-         &lt;&lt; (ok ? <span class="st">"YES"</span> : <span class="st">"NO"</span>)
-         &lt;&lt; <span class="st">"\\n"</span>;
+    cout &lt;&lt; <span class="st">"Valid: "</span> &lt;&lt; (ok?<span class="st">"YES"</span>:<span class="st">"NO"</span>) &lt;&lt; <span class="st">"\\n"</span>;
     <span class="kw">return</span> <span class="nm">0</span>;
 }`;
   }
 
   function render(n) {
-    document.getElementById('size-label').textContent = n;
+    document.getElementById('size-label').textContent  = n;
     document.getElementById('size-label2').textContent = n;
-    document.getElementById('queens-count').textContent = n;
 
-    const queens = solveNQueens(n); // 1-indexed columns
+    const sc  = getSubcase(n);
+    const scEl = document.getElementById('subcase-label');
+    scEl.textContent = sc.label;
+    scEl.className   = sc.cls;
+
+    const queens = solveNQueens(n);
+    const grid   = document.getElementById('chess-grid');
+    const out    = document.getElementById('output-box');
+
     if (!queens) {
-      document.getElementById('chess-grid').innerHTML = '<div style="color:#ff7b72;padding:20px;font-size:13px">No solution for n=' + n + '</div>';
+      grid.style.gridTemplateColumns = '';
+      grid.innerHTML = `<div style="color:#ff7b72;padding:24px 16px;font-family:'JetBrains Mono',monospace;font-size:13px;text-align:center">No solution<br>for n = ${n}</div>`;
+      out.innerHTML  = `<div style="color:#ff7b72;font-family:'JetBrains Mono',monospace">No solution for N=${n}.</div><div style="color:#8b949e;margin-top:8px;font-size:11px">N=2 and N=3 have no valid placement.</div>`;
+      document.getElementById('cpp-code').innerHTML = buildCppCode(n, null);
       return;
     }
 
-    const att = isAttacked(queens, n);
-
     // Board
-    const maxPx = 280;
-    const cellSize = Math.max(18, Math.min(50, Math.floor(maxPx / n)));
-    const fontSize = Math.max(9, Math.min(22, Math.floor(cellSize * 0.52)));
-    const grid = document.getElementById('chess-grid');
-    grid.style.gridTemplateColumns = `repeat(${n}, ${cellSize}px)`;
+    const maxPx  = 280;
+    const cellSz = Math.max(14, Math.min(54, Math.floor(maxPx / n)));
+    const fontSz = Math.max(8,  Math.min(26, Math.floor(cellSz * 0.54)));
+    grid.style.gridTemplateColumns = `repeat(${n}, ${cellSz}px)`;
     grid.innerHTML = '';
-
+    const att = buildAttacked(queens, n);
     for (let i = 0; i < n; i++) {
       for (let j = 0; j < n; j++) {
-        const isLight = (i + j) % 2 === 0;
+        const light    = (i + j) % 2 === 0;
         const hasQueen = queens[i] - 1 === j;
-        const isAtt = !hasQueen && att[i][j];
-
+        const isAtt    = !hasQueen && att[i][j];
         const div = document.createElement('div');
-        div.style.cssText = `width:${cellSize}px;height:${cellSize}px;font-size:${fontSize}px`;
         div.className = 'cell';
-
+        div.style.cssText = `width:${cellSz}px;height:${cellSz}px;font-size:${fontSz}px`;
         if (hasQueen) {
-          div.classList.add(isLight ? 'queen-light' : 'queen-dark');
-          const span = document.createElement('span');
-          span.className = 'queen-num';
-          span.style.fontSize = fontSize + 'px';
-          span.textContent = '♛';
-          span.style.color = '#3fb950';
-          div.appendChild(span);
+          div.classList.add(light ? 'queen-light' : 'queen-dark');
+          div.textContent = '♛';
+          div.style.color = '#3fb950';
         } else if (isAtt) {
-          div.classList.add(isLight ? 'attacked-light' : 'attacked-dark');
+          div.classList.add(light ? 'att-light' : 'att-dark');
         } else {
-          div.classList.add(isLight ? 'light' : 'dark');
+          div.classList.add(light ? 'light' : 'dark');
         }
         grid.appendChild(div);
       }
     }
 
     // Output
-    const out = document.getElementById('output-box');
+    const valid = checkValid(queens, n);
     let html = `<div style="color:#58a6ff;font-weight:600;margin-bottom:4px">N-Queens Solution (N=${n}):</div>`;
-    html += `<div style="color:#30363d;margin-bottom:6px">${'-'.repeat(Math.min(n * 2, 40))}</div>`;
+    html += `<div style="color:#30363d;margin-bottom:6px">${'─'.repeat(Math.min(n * 2, 38))}</div>`;
     for (let i = 0; i < n; i++) {
       let line = '';
-      for (let j = 1; j <= n; j++) {
-        line += queens[i] === j ? 'Q' : '.';
-        if (j < n) line += ' ';
-      }
+      for (let j = 1; j <= n; j++) line += (queens[i] === j ? 'Q' : '.') + (j < n ? ' ' : '');
       html += `<div class="out-grid-line">${line}</div>`;
     }
-    html += `<div style="height:8px"></div><div style="color:#8b949e;margin-bottom:4px">Queen positions (col per row):</div>`;
+    html += `<div style="height:8px"></div><div style="color:#8b949e;margin-bottom:4px">Column per row (1-indexed):</div>`;
     for (let i = 0; i < n; i++) {
       html += `<div class="out-row"><span class="out-key">Row ${String(i+1).padStart(2)}:</span><span class="out-val">col ${queens[i]}</span></div>`;
     }
-
-    // Verify
-    let ok = true;
-    for (let i = 0; i < n && ok; i++)
-      for (let j = i + 1; j < n && ok; j++) {
-        if (queens[i] === queens[j]) ok = false;
-        if (Math.abs(queens[i] - queens[j]) === Math.abs(i - j)) ok = false;
-      }
-    html += `<div style="height:6px"></div><div class="out-row"><span class="out-key">Valid:</span><span class="out-val" style="color:${ok ? '#3fb950' : '#ff7b72'}">${ok ? 'YES ✓' : 'NO ✗'}</span></div>`;
+    html += `<div style="height:6px"></div><div class="out-row"><span class="out-key">Valid:</span><span class="out-val" style="color:${valid?'#3fb950':'#ff7b72'}">${valid?'YES ✓':'NO ✗'}</span></div>`;
     out.innerHTML = html;
 
-    // C++ code
     document.getElementById('cpp-code').innerHTML = buildCppCode(n, queens);
   }
 
