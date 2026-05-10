@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Magic Square — Adjustable Size</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0d1117;
+    color: #e6edf3;
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .slide {
+    width: 960px;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+  }
+
+  /* Header */
+  .header {
+    background: #0d1b2a;
+    border-bottom: 1px solid #30363d;
+    padding: 24px 36px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .dots { display: flex; gap: 7px; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot.red    { background: #ff5f57; }
+  .dot.yellow { background: #febc2e; }
+  .dot.green  { background: #28c840; }
+  .header-title { font-size: 20px; font-weight: 700; color: #f0f6fc; letter-spacing: -0.02em; margin-left: 12px; }
+  .header-sub   { font-size: 12px; color: #8b949e; font-weight: 300; margin-top: 2px; }
+  .badge {
+    margin-left: auto;
+    background: #58a6ff22;
+    border: 1px solid #58a6ff44;
+    color: #58a6ff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 600;
+    padding: 4px 10px; border-radius: 6px;
+    letter-spacing: 0.05em; text-transform: uppercase;
+  }
+
+  /* Slider section */
+  .controls {
+    padding: 24px 36px;
+    border-bottom: 1px solid #30363d;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    background: #0f1319;
+  }
+  .ctrl-label {
+    font-size: 13px; color: #8b949e; font-weight: 500; white-space: nowrap;
+  }
+  .slider-wrap { flex: 1; display: flex; align-items: center; gap: 16px; }
+  input[type=range] {
+    -webkit-appearance: none;
+    flex: 1; height: 6px;
+    background: #30363d; border-radius: 3px; outline: none; cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: #58a6ff; cursor: pointer;
+    box-shadow: 0 0 0 3px #58a6ff33;
+    transition: box-shadow 0.2s;
+  }
+  input[type=range]::-webkit-slider-thumb:hover { box-shadow: 0 0 0 6px #58a6ff33; }
+  .size-display {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px; font-weight: 700;
+    color: #58a6ff; min-width: 52px; text-align: center;
+  }
+  .magic-const {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: #8b949e;
+    background: #0d1117; border: 1px solid #30363d;
+    padding: 6px 14px; border-radius: 8px; white-space: nowrap;
+  }
+  .magic-const span { color: #3fb950; font-weight: 700; }
+
+  /* Warning for even sizes */
+  .warning {
+    display: none;
+    padding: 10px 36px;
+    background: #2d1f0e;
+    border-bottom: 1px solid #7d4e0a44;
+    font-size: 12px; color: #ffa657;
+  }
+  .warning.show { display: block; }
+
+  /* Main content */
+  .content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 380px;
+  }
+
+  .panel { padding: 28px 32px; }
+  .panel + .panel { border-left: 1px solid #30363d; }
+  .panel-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #8b949e;
+    margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+  }
+  .panel-label::before {
+    content: ''; display: inline-block;
+    width: 6px; height: 6px; border-radius: 50%; background: currentColor;
+  }
+
+  /* Grid */
+  #grid-container {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 300px;
+  }
+  .magic-grid {
+    display: grid;
+    gap: 5px;
+  }
+  .cell {
+    display: flex; align-items: center; justify-content: center;
+    background: #1f2937;
+    border: 1px solid #374151;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700; color: #f0f6fc;
+    transition: background 0.3s, transform 0.15s;
+    cursor: default;
+  }
+  .cell:hover { transform: scale(1.08); z-index: 1; position: relative; }
+  .cell.center-cell { background: #1a2f1a; border-color: #3fb950; color: #3fb950; }
+  .cell.diag1 { background: #1a1f2e; border-color: #58a6ff; color: #58a6ff; }
+  .cell.diag2 { background: #2a1a2e; border-color: #d2a8ff; color: #d2a8ff; }
+  .cell.both  { background: #1f2a1f; border-color: #3fb950; color: #3fb950; }
+
+  /* Output panel */
+  .output-scroll {
+    background: #0d1117; border: 1px solid #30363d; border-radius: 10px;
+    padding: 16px 18px; max-height: 340px; overflow-y: auto;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.8;
+  }
+  .out-row { display: flex; gap: 12px; }
+  .out-key   { color: #8b949e; min-width: 80px; }
+  .out-val   { color: #3fb950; font-weight: 700; }
+  .out-sep   { color: #30363d; margin: 6px 0; }
+  .out-grid-line { color: #79c0ff; letter-spacing: 0.15em; font-size: 13px; }
+
+  /* Legend */
+  .legend {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    margin-top: 16px; font-size: 11px; color: #8b949e;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-dot  { width: 10px; height: 10px; border-radius: 3px; border: 1px solid; }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid #30363d;
+    padding: 14px 36px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: #0d1117;
+  }
+  .footer-note { font-size: 12px; color: #8b949e; }
+  .footer-note strong { color: #58a6ff; }
+  .formula { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8b949e; }
+  .formula span { color: #ffa657; }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="dots">
+      <div class="dot red"></div>
+      <div class="dot yellow"></div>
+      <div class="dot green"></div>
+    </div>
+    <div style="margin-left:12px">
+      <div class="header-title">Magic Square — C++ Solution</div>
+      <div class="header-sub">Siamese method · odd-order magic squares</div>
+    </div>
+    <div class="badge">C++17</div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <div class="ctrl-label">Matrix Size</div>
+    <div class="slider-wrap">
+      <input type="range" id="size-slider" min="3" max="11" step="2" value="3">
+      <div class="size-display"><span id="size-label">3</span>×<span id="size-label2">3</span></div>
+    </div>
+    <div class="magic-const">Magic sum = <span id="magic-sum">15</span></div>
+  </div>
+
+  <div class="warning" id="warning">
+    ⚠ Even-order magic squares require a different algorithm. Showing odd sizes only (3, 5, 7, 9, 11).
+  </div>
+
+  <!-- Main -->
+  <div class="content">
+
+    <!-- Left: Grid -->
+    <div class="panel">
+      <div class="panel-label">Visual Grid</div>
+      <div id="grid-container">
+        <div class="magic-grid" id="magic-grid"></div>
+      </div>
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#1a2f1a;border-color:#3fb950"></div> Center
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#1a1f2e;border-color:#58a6ff"></div> Main diagonal
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#2a1a2e;border-color:#d2a8ff"></div> Anti-diagonal
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Output -->
+    <div class="panel">
+      <div class="panel-label">Program Output</div>
+      <div class="output-scroll" id="output-box"></div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-note">Integers <strong>1 – n²</strong> used exactly once</div>
+    <div class="formula">Magic constant = <span>n(n²+1) / 2</span></div>
+  </div>
+
+</div>
+
+<script>
+  function generateMagicSquare(n) {
+    const sq = Array.from({length: n}, () => Array(n).fill(0));
+    let r = 0, c = Math.floor(n / 2);
+    for (let num = 1; num <= n * n; num++) {
+      sq[r][c] = num;
+      let nr = (r - 1 + n) % n;
+      let nc = (c + 1) % n;
+      if (sq[nr][nc] !== 0) { nr = (r + 1) % n; nc = c; }
+      r = nr; c = nc;
+    }
+    return sq;
+  }
+
+  function render(n) {
+    const sq = generateMagicSquare(n);
+    const magicSum = n * (n * n + 1) / 2;
+    const mid = Math.floor(n / 2);
+
+    // Update labels
+    document.getElementById('size-label').textContent = n;
+    document.getElementById('size-label2').textContent = n;
+    document.getElementById('magic-sum').textContent = magicSum;
+
+    // Compute cell size
+    const maxGridPx = 300;
+    const cellSize = Math.max(28, Math.min(64, Math.floor((maxGridPx - (n-1)*5) / n)));
+    const fontSize = Math.max(10, Math.min(22, Math.floor(cellSize * 0.42)));
+
+    // Build grid
+    const grid = document.getElementById('magic-grid');
+    grid.style.gridTemplateColumns = `repeat(${n}, ${cellSize}px)`;
+    grid.innerHTML = '';
+
+    for (let i = 0; i < n; i++) {
+      for (let j = 0; j < n; j++) {
+        const div = document.createElement('div');
+        div.className = 'cell';
+        div.style.width  = cellSize + 'px';
+        div.style.height = cellSize + 'px';
+        div.style.fontSize = fontSize + 'px';
+        div.textContent = sq[i][j];
+
+        const onD1 = i === j;
+        const onD2 = i + j === n - 1;
+        const isCenter = i === mid && j === mid;
+
+        if (isCenter)       div.classList.add('center-cell');
+        else if (onD1 && onD2) div.classList.add('both');
+        else if (onD1)      div.classList.add('diag1');
+        else if (onD2)      div.classList.add('diag2');
+
+        grid.appendChild(div);
+      }
+    }
+
+    // Build output
+    const out = document.getElementById('output-box');
+    let html = '';
+    html += `<div style="color:#58a6ff;font-weight:600;margin-bottom:4px">Magic Square (${n}x${n}):</div>`;
+    html += `<div style="color:#30363d;margin-bottom:6px">${'-'.repeat(n * 3)}</div>`;
+    for (let i = 0; i < n; i++) {
+      html += `<div class="out-grid-line">${sq[i].map(v => String(v).padStart(n > 9 ? 3 : 2)).join(' ')}</div>`;
+    }
+    html += `<div style="height:10px"></div>`;
+    html += `<div style="color:#8b949e;margin-bottom:4px">Verification (all = ${magicSum}):</div>`;
+    for (let i = 0; i < n; i++) {
+      let row = 0, col = 0;
+      for (let j = 0; j < n; j++) { row += sq[i][j]; col += sq[j][i]; }
+      html += `<div class="out-row"><span class="out-key">Row ${i+1}:</span><span class="out-val">${row}</span><span class="out-key" style="margin-left:12px">Col ${i+1}:</span><span class="out-val">${col}</span></div>`;
+    }
+    let d1 = 0, d2 = 0;
+    for (let i = 0; i < n; i++) { d1 += sq[i][i]; d2 += sq[i][n-1-i]; }
+    html += `<div style="height:6px"></div>`;
+    html += `<div class="out-row"><span class="out-key">Diag 1:</span><span class="out-val">${d1}</span><span class="out-key" style="margin-left:12px">Diag 2:</span><span class="out-val">${d2}</span></div>`;
+
+    out.innerHTML = html;
+  }
+
+  const slider = document.getElementById('size-slider');
+  slider.addEventListener('input', () => render(parseInt(slider.value)));
+  render(3);
+</script>
+</body>
+</html>
